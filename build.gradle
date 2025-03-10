@@ -24,7 +24,20 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter'
+    // spring boot
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    // swagger
+    implementation 'org.springdoc:springdoc-openapi-ui:1.6.11'
+
+    // apache
+    implementation 'commons-lang:commons-lang:2.6'
+
+    // google
+    implementation 'com.google.code.gson:gson:2.8.9'
+
+    runtimeOnly 'com.h2database:h2'
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'

@@ -1,0 +1,62 @@
+package com.musinsa.domain.category.controller;
+
+import com.musinsa.domain.category.dto.CategoryDto;
+import com.musinsa.domain.category.service.CategoryService;
+import com.musinsa.global.common.ResourceConverter;
+import com.musinsa.global.common.ResponseObject;
+import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+
+@RestController
+@RequiredArgsConstructor
+@Validated
+@RequestMapping("/api/category")
+public class CategoryController {
+
+    private final CategoryService categoryService;
+
+    // 카테고리 목록 조회
+    // url : localhost:8080/api/category
+    @Operation(summary = "카테고리 목록 조회")
+    @GetMapping("")
+    public ResponseObject<List<CategoryDto>> getAllCategories(){
+        return ResourceConverter.toResponseObject(categoryService.getAllCategories());
+    }
+
+    // 카테고리 단건 조회
+    // url : localhost:8080/api/category/{categoryId}
+    @Operation(summary = "카테고리 단건 조회")
+    @GetMapping("/{categoryId}")
+    public ResponseObject<CategoryDto> getCategoryById(@PathVariable(name = "categoryId") Long categoryId) {
+        return ResourceConverter.toResponseObject(categoryService.getCategoryById(categoryId));
+    }
+
+    // 카테고리 등록
+    // url : localhost:8080/api/category
+    @Operation(summary = "카테고리 등록")
+    @PostMapping("")
+    @ResponseBody
+    public ResponseObject<CategoryDto> registerCategory(@RequestBody @Valid CategoryDto categoryDto) {
+        return ResourceConverter.toResponseObject(categoryService.saveCategory(categoryDto));
+    }
+
+    // 카테고리 수정
+    // url : localhost:8080/api/category
+    @Operation(summary = "카테고리 수정")
+    @PutMapping("")
+    public ResponseObject<CategoryDto> modifyCategory(@RequestBody @Valid CategoryDto categoryDto) {
+        return ResourceConverter.toResponseObject(categoryService.saveCategory(categoryDto));
+    }
+}

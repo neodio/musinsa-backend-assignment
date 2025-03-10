@@ -1,0 +1,33 @@
+spring:
+
+  # datasource Setting Info
+  datasource:
+    url: jdbc:h2:mem:product
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+
+  # jpa Setting Info
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+        show_sql: true
+        format_sql: true
+        use_sql_comments: true
+  logging.level:
+    org.hibernate.SQL: debug
+
+  # H2 Setting Info
+  h2:
+    console:
+      enabled: true  # H2 Console
+      path: /h2-console  # H2 Console Path
+
+  # redis Setting Info
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
