@@ -4,10 +4,12 @@ import com.musinsa.domain.brand.dto.BrandDto;
 import com.musinsa.domain.brand.service.BrandService;
 import com.musinsa.global.common.ResourceConverter;
 import com.musinsa.global.common.ResponseObject;
+import com.musinsa.global.common.ResponseResult;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -58,5 +60,13 @@ public class BrandController {
     @PutMapping("")
     public ResponseObject<BrandDto> modifyBrand(@RequestBody @Valid BrandDto brandDto) {
         return ResourceConverter.toResponseObject(brandService.saveBrand(brandDto));
+    }
+
+    // 브랜드 삭제
+    // uri : localhost:8080/api/brand/{brandId}
+    @Operation(summary = "브랜드 삭제")
+    @DeleteMapping("/{brandId}")
+    public ResponseObject<ResponseResult> removeBrand(@PathVariable(name = "brandId") Long brandId) {
+        return ResourceConverter.toResponseObject(brandService.removeBrand(brandId));
     }
 }

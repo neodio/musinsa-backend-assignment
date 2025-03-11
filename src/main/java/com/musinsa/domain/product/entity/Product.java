@@ -9,6 +9,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -29,16 +30,21 @@ public class Product extends BaseEntity {
 
     private String productName;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    private int productPrice;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "brand_id")
     private Brand brand;
 
-    public Product(String productName) {
+    public Product(String productName, int productPrice, Category category, Brand brand) {
         this.productName = productName;
+        this.productPrice = productPrice;
+        this.category = category;
+        this.brand = brand;
     }
 
     public static Product toEntity(ProductDto productDto) {

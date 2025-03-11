@@ -4,10 +4,12 @@ import com.musinsa.domain.product.dto.ProductDto;
 import com.musinsa.domain.product.service.ProductService;
 import com.musinsa.global.common.ResourceConverter;
 import com.musinsa.global.common.ResponseObject;
+import com.musinsa.global.common.ResponseResult;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -58,5 +60,13 @@ public class ProductController {
     @PutMapping("")
     public ResponseObject<ProductDto> modifyProduct(@RequestBody @Valid ProductDto productDto) {
         return ResourceConverter.toResponseObject(productService.saveProduct(productDto));
+    }
+
+    // 상품 삭제
+    // uri : localhost:8080/api/product/{productId}
+    @Operation(summary = "상품 삭제")
+    @DeleteMapping("/{productId}")
+    public ResponseObject<ResponseResult> removeProduct(@PathVariable(name = "productId") Long productId) {
+        return ResourceConverter.toResponseObject(productService.removeProduct(productId));
     }
 }

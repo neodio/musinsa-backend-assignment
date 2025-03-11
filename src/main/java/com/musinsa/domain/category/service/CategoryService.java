@@ -3,6 +3,7 @@ package com.musinsa.domain.category.service;
 import com.musinsa.domain.category.dto.CategoryDto;
 import com.musinsa.domain.category.entity.Category;
 import com.musinsa.domain.category.repository.CategoryRepository;
+import com.musinsa.global.common.ResponseResult;
 import com.musinsa.global.exception.BusinessException;
 import com.musinsa.global.exception.ExceptionCode;
 import lombok.RequiredArgsConstructor;
@@ -53,5 +54,14 @@ public class CategoryService {
     public CategoryDto saveCategory(CategoryDto categoryDto) {
         Category category = categoryRepository.save(Category.toEntity(categoryDto));
         return CategoryDto.toDto(category);
+    }
+
+    /**
+     * 카테고리 삭제
+     */
+    @Transactional
+    public ResponseResult removeCategory(Long categoryId) {
+        categoryRepository.deleteById(categoryId);
+        return ResponseResult.getResponseResult(categoryId, 1, "success");
     }
 }

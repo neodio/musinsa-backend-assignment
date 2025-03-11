@@ -3,6 +3,7 @@ package com.musinsa.domain.product.service;
 import com.musinsa.domain.product.dto.ProductDto;
 import com.musinsa.domain.product.entity.Product;
 import com.musinsa.domain.product.repository.ProductRepository;
+import com.musinsa.global.common.ResponseResult;
 import com.musinsa.global.exception.BusinessException;
 import com.musinsa.global.exception.ExceptionCode;
 import lombok.RequiredArgsConstructor;
@@ -53,5 +54,14 @@ public class ProductService {
     public ProductDto saveProduct(ProductDto productDto) {
         Product product = productRepository.save(Product.toEntity(productDto));
         return ProductDto.toDto(product);
+    }
+
+    /**
+     * 상품 삭제
+     */
+    @Transactional
+    public ResponseResult removeProduct(Long categoryId) {
+        productRepository.deleteById(categoryId);
+        return ResponseResult.getResponseResult(categoryId, 1, "success");
     }
 }

@@ -3,6 +3,7 @@ package com.musinsa.domain.brand.service;
 import com.musinsa.domain.brand.dto.BrandDto;
 import com.musinsa.domain.brand.entity.Brand;
 import com.musinsa.domain.brand.repository.BrandRepository;
+import com.musinsa.global.common.ResponseResult;
 import com.musinsa.global.exception.BusinessException;
 import com.musinsa.global.exception.ExceptionCode;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +23,7 @@ public class BrandService {
 
 
     /**
-     * 카테고리 목록 조회
+     * 브랜드 목록 조회
      */
     @Cacheable(value = "BRAND", key = "'ALL'")
     public List<BrandDto> getAllBrand() {
@@ -39,19 +40,28 @@ public class BrandService {
     }
 
     /**
-     * 카테고리 단건 조회
+     * 브랜드 단건 조회
      */
     public BrandDto getBrandById(Long brandId) {
-        Brand brand = brandRepository.findById(brandId).orElseThrow(() -> new BusinessException(ExceptionCode.ERROR_CODE_1009, "카테고리"));
+        Brand brand = brandRepository.findById(brandId).orElseThrow(() -> new BusinessException(ExceptionCode.ERROR_CODE_1009, "브랜드"));
         return BrandDto.toDto(brand);
     }
 
     /**
-     * 카테고리 등록/수정
+     * 브랜드 등록/수정
      */
     @Transactional
     public BrandDto saveBrand(BrandDto brandDto) {
         Brand brand = brandRepository.save(Brand.toEntity(brandDto));
         return BrandDto.toDto(brand);
+    }
+
+    /**
+     * 브랜드 삭제
+     */
+    @Transactional
+    public ResponseResult removeBrand(Long brandId) {
+        brandRepository.deleteById(brandId);
+        return ResponseResult.getResponseResult(brandId, 1, "success");
     }
 }
