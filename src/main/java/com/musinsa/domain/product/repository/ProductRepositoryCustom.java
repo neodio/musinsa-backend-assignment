@@ -1,10 +1,9 @@
 package com.musinsa.domain.product.repository;
 
-import com.musinsa.domain.product.dto.ProductDto;
-import io.weverse.domain.shop.dto.GoodsCategoryDto;
+import com.musinsa.domain.product.dto.ProductLowestDto;
 import java.util.List;
 
 public interface ProductRepositoryCustom {
 
-    List<ProductDto> getProductListByCategory(Long categoryId);
+    List<ProductLowestDto> getLowestProductListByCategory();
 }

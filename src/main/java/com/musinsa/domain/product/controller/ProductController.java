@@ -1,6 +1,7 @@
 package com.musinsa.domain.product.controller;
 
 import com.musinsa.domain.product.dto.ProductDto;
+import com.musinsa.domain.product.dto.ProductLowestDto;
 import com.musinsa.domain.product.service.ProductService;
 import com.musinsa.global.common.ResourceConverter;
 import com.musinsa.global.common.ResponseObject;
@@ -68,5 +69,13 @@ public class ProductController {
     @DeleteMapping("/{productId}")
     public ResponseObject<ResponseResult> removeProduct(@PathVariable(name = "productId") Long productId) {
         return ResourceConverter.toResponseObject(productService.removeProduct(productId));
+    }
+
+    // 카테고리별 최저가 상품
+    // uri : localhost:8080/api/product/lowest
+    @Operation(summary = "카테고리별 최저가 상품")
+    @GetMapping("/lowest")
+    public ResponseObject<List<ProductLowestDto>> getProductLowest() {
+        return ResourceConverter.toResponseObject(productService.getProductLowest());
     }
 }

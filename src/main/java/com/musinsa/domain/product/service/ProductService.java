@@ -1,6 +1,7 @@
 package com.musinsa.domain.product.service;
 
 import com.musinsa.domain.product.dto.ProductDto;
+import com.musinsa.domain.product.dto.ProductLowestDto;
 import com.musinsa.domain.product.entity.Product;
 import com.musinsa.domain.product.repository.ProductRepository;
 import com.musinsa.global.common.ResponseResult;
@@ -63,5 +64,12 @@ public class ProductService {
     public ResponseResult removeProduct(Long categoryId) {
         productRepository.deleteById(categoryId);
         return ResponseResult.getResponseResult(categoryId, 1, "success");
+    }
+
+    /**
+     * 카테고리별 최저가 상품
+     */
+    public List<ProductLowestDto> getProductLowest() {
+        return productRepository.getLowestProductListByCategory();
     }
 }
