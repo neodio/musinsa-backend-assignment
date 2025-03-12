@@ -2,6 +2,7 @@ package com.musinsa.domain.product.service;
 
 import com.musinsa.domain.product.dto.ProductDto;
 import com.musinsa.domain.product.dto.ProductLowestDto;
+import com.musinsa.domain.product.dto.ProductLowestTotalDto;
 import com.musinsa.domain.product.entity.Product;
 import com.musinsa.domain.product.repository.ProductRepository;
 import com.musinsa.global.common.ResponseResult;
@@ -9,11 +10,16 @@ import com.musinsa.global.exception.BusinessException;
 import com.musinsa.global.exception.ExceptionCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cglib.core.internal.Function;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -69,7 +75,22 @@ public class ProductService {
     /**
      * 카테고리별 최저가 상품
      */
-    public List<ProductLowestDto> getProductLowest() {
-        return productRepository.getLowestProductListByCategory();
+    public ProductLowestTotalDto getProductLowest() {
+        List<ProductLowestDto> lowestProductList = productRepository.getLowestProductListByCategory();
+
+        return ProductLowestTotalDto.builder()
+                .lowestList(lowestProductList.stream()
+                            .filter(distinctByCategory(ProductLowestDto::getCategoryId))
+                            .collect(Collectors.toList()))
+                .totalPrice(lowestProductList.stream()
+                            .mapToInt(ProductLowestDto::getProductPrice)
+                            .sum())
+                .build();
     }
+
+    public static <T> Predicate<T> distinctByCategory(Function<? super T, Object> keyExtractor) {
+        Map<Object, Boolean> map = new ConcurrentHashMap<>();
+        return t -> map.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null;
+    }
+
 }

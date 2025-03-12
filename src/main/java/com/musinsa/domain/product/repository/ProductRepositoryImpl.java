@@ -1,14 +1,17 @@
 package com.musinsa.domain.product.repository;
 
+import com.musinsa.domain.product.dto.ProductLowestDto;
+import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.dsl.Expressions;
+import com.querydsl.jpa.JPAExpressions;
+import com.querydsl.jpa.impl.JPAQueryFactory;
+import lombok.RequiredArgsConstructor;
+
+import java.util.List;
+
 import static com.musinsa.domain.brand.entity.QBrand.brand;
 import static com.musinsa.domain.category.entity.QCategory.category;
 import static com.musinsa.domain.product.entity.QProduct.product;
-
-import com.musinsa.domain.product.dto.ProductLowestDto;
-import com.querydsl.core.types.Projections;
-import com.querydsl.jpa.impl.JPAQueryFactory;
-import java.util.List;
-import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class ProductRepositoryImpl implements ProductRepositoryCustom {
@@ -30,13 +33,14 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
             .from(product)
             .innerJoin(product.category, category)
             .innerJoin(product.brand, brand)
-//            .where(
-//                Expressions.list(product.category, product.productPrice).in(
-//                        JPAExpressions
-//                            .select(Expressions.list(product.category, product.productPrice.min()))
-//                            .from(product)
-//                            .groupBy(product.category))
-//            )
+            .where(
+                Expressions.list(product.category.categoryId, product.productPrice).in(
+                        JPAExpressions
+                            .select(Expressions.list(product.category.categoryId, product.productPrice.min()))
+                            .from(product)
+                            .groupBy(product.category.categoryId))
+            )
+            .orderBy(product.category.categoryId.asc(), product.productId.desc())
             .fetch();
     }
 }
