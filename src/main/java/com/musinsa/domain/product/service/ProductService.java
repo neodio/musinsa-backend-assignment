@@ -1,5 +1,6 @@
 package com.musinsa.domain.product.service;
 
+import com.musinsa.domain.product.dto.BrandLowestDto;
 import com.musinsa.domain.product.dto.ProductByBrandDto;
 import com.musinsa.domain.product.dto.ProductByBrandTotalDto;
 import com.musinsa.domain.product.dto.ProductDto;
@@ -12,6 +13,7 @@ import com.musinsa.global.common.ResponseResult;
 import com.musinsa.global.exception.BusinessException;
 import com.musinsa.global.exception.ExceptionCode;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -22,7 +24,6 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cglib.core.internal.Function;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.ObjectUtils;
 
 @Service
 @Transactional(readOnly = true)
@@ -85,14 +86,28 @@ public class ProductService {
     }
 
     /**
-     * 단일 브랜드 상품 조회
+     * 단일 브랜드 최저가 상품 리스트 조회
      */
-    public ProductByBrandTotalDto findProductByBrandId(Long brandId) {
-        List<ProductByBrandDto> productByBrandList = productRepository.findProductByBrandId(brandId);
+    public ProductByBrandTotalDto brandLowest() {
 
-        if(ObjectUtils.isEmpty(productByBrandList)) {
-            throw new BusinessException(ExceptionCode.ERROR_CODE_1009, "브랜드 상품");
-        }
+        //브랜드별 최저가격 상품 가격의 합계 조회(native query)
+        //List<Product> productEntityList = productRepository.findBrandLowest();
+
+        //dto 변환
+        //List<BrandLowestDto> brandLowest = productEntityList.stream()
+//                                            .map(BrandLowestDto::toDto)
+//                                            .collect(Collectors.toList());
+
+        List<BrandLowestDto> brandLowest = productRepository.findBrandLowest();
+
+        //최저가 브랜드 추출
+        BrandLowestDto lowestBrand = brandLowest.stream()
+            .sorted(Comparator.comparing(BrandLowestDto::getLowestTotalPrice))
+            .findFirst()
+            .orElseThrow(() -> new BusinessException(ExceptionCode.ERROR_CODE_1009, "브랜드 최저가"));
+
+        // 브랜드의 카테고리별 최저가 상품 조회
+        List<ProductByBrandDto> productByBrandList = productRepository.findProductByBrandId(lowestBrand.getBrandId());
 
         return ProductByBrandTotalDto.builder()
             .brandId(productByBrandList.get(0).getBrandId())

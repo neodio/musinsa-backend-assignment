@@ -44,6 +44,25 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
             .fetch();
     }
 
+//    @Override
+//    public BrandLowestDto findBrandLowest() {
+//        StringPath subQueryAlias = Expressions.stringPath("sub_query_order");
+//
+//        return queryFactory
+//            .select(Projections.fields(BrandLowestDto.class,
+//                brand.brandId,
+//                product.productPrice.sum()
+//            ))
+//            .from(
+//                JPAExpressions
+//                    .select(product.category.categoryId, product.brand.brandId, product.productPrice.min())
+//                    .from(product)
+//                    .groupBy(product.category.categoryId, product.brand.brandId),
+//                subQueryAlias
+//            )
+//            .groupBy(subQueryAlias.)
+//    }
+
     @Override
     public List<ProductByBrandDto> findProductByBrandId(Long brandId) {
         return queryFactory

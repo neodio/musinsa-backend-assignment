@@ -8,5 +8,7 @@ public interface ProductRepositoryCustom {
 
     List<ProductLowestDto> getLowestProductListByCategory();
 
+//    BrandLowestDto findBrandLowest();
+
     List<ProductByBrandDto> findProductByBrandId(Long brandId);
 }

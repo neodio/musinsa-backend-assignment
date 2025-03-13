@@ -73,7 +73,7 @@ public class ProductController {
         return ResourceConverter.toResponseObject(productService.removeProduct(productId));
     }
 
-    // 구현1) 카테고리별 최저가 상품
+    // 구현1) 카테고리 별 최저가격 브랜드와 상품 가격, 총액을 조회하는 API
     // uri : localhost:8080/api/product/lowest
     @Operation(summary = "카테고리별 최저가 상품")
     @GetMapping("/lowest")
@@ -81,11 +81,11 @@ public class ProductController {
         return ResourceConverter.toResponseObject(productService.getProductLowest());
     }
 
-    // 구현2) 단일 브랜드 상품 조회
-    // uri : localhost:8080/api/product/brand/{brandId}
+    // 구현2) 단일 브랜드로 모든 카테고리 상품을 구매할 때 최저가격에 판매하는 브랜드와 카테고리의 상품가격, 총액을 조회하는 API
+    // uri : localhost:8080/api/product/brandLowest
     @Operation(summary = "단일 브랜드 상품 조회")
-    @GetMapping("/brand/{brandId}")
-    public ResponseObject<ProductByBrandTotalDto> findProductByBrandId(@PathVariable(name = "brandId") Long brandId) {
-        return ResourceConverter.toResponseObject(productService.findProductByBrandId(brandId));
+    @GetMapping("/brandLowest")
+    public ResponseObject<ProductByBrandTotalDto> brandLowest() {
+        return ResourceConverter.toResponseObject(productService.brandLowest());
     }
 }
