@@ -6,12 +6,11 @@ import com.musinsa.global.common.ResponseObject;
 import com.musinsa.global.util.LogUtil;
 import io.micrometer.common.util.StringUtils;
 import jakarta.servlet.http.HttpServletRequest;
+import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.ObjectUtils;
 import org.springframework.validation.BindingResult;
@@ -21,9 +20,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.NoHandlerFoundException;
-
-import java.nio.charset.StandardCharsets;
-import java.util.Optional;
 
 
 /**
@@ -144,17 +140,5 @@ public class GlobalExceptionHandler {
             result.append("]").append(",[requestMethod:").append(request.getMethod()).append("]");
         }
         return result.toString();
-    }
-
-    /**
-     * http header 설정
-     *
-     * @return
-     */
-    private static HttpHeaders getDefaultHttpHeaders() {
-        HttpHeaders httpHeaders = new HttpHeaders();
-        MediaType mediaType = new MediaType(MediaType.APPLICATION_JSON, StandardCharsets.UTF_8);
-        httpHeaders.setContentType(mediaType);
-        return httpHeaders;
     }
 }

@@ -1,17 +1,17 @@
 package com.musinsa.domain.product.repository;
 
+import static com.musinsa.domain.brand.entity.QBrand.brand;
+import static com.musinsa.domain.category.entity.QCategory.category;
+import static com.musinsa.domain.product.entity.QProduct.product;
+
+import com.musinsa.domain.product.dto.ProductByBrandDto;
 import com.musinsa.domain.product.dto.ProductLowestDto;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import lombok.RequiredArgsConstructor;
-
 import java.util.List;
-
-import static com.musinsa.domain.brand.entity.QBrand.brand;
-import static com.musinsa.domain.category.entity.QCategory.category;
-import static com.musinsa.domain.product.entity.QProduct.product;
+import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class ProductRepositoryImpl implements ProductRepositoryCustom {
@@ -41,6 +41,25 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
                             .groupBy(product.category.categoryId))
             )
             .orderBy(product.category.categoryId.asc(), product.productId.desc())
+            .fetch();
+    }
+
+    @Override
+    public List<ProductByBrandDto> findProductByBrandId(Long brandId) {
+        return queryFactory
+            .select(Projections.fields(ProductByBrandDto.class,
+                product.productId,
+                product.productName,
+                product.productPrice,
+                category.categoryId,
+                category.categoryName,
+                brand.brandId,
+                brand.brandName
+            ))
+            .from(product)
+            .innerJoin(product.category, category)
+            .innerJoin(product.brand, brand)
+            .where(product.brand.brandId.eq(brandId))
             .fetch();
     }
 }

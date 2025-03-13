@@ -1,7 +1,9 @@
 package com.musinsa.domain.product.controller;
 
+import com.musinsa.domain.product.dto.ProductByBrandTotalDto;
 import com.musinsa.domain.product.dto.ProductDto;
 import com.musinsa.domain.product.dto.ProductLowestTotalDto;
+import com.musinsa.domain.product.dto.ProductSetDto;
 import com.musinsa.domain.product.service.ProductService;
 import com.musinsa.global.common.ResourceConverter;
 import com.musinsa.global.common.ResponseObject;
@@ -34,8 +36,8 @@ public class ProductController {
     // url : localhost:8080/api/product
     @Operation(summary = "상품 목록 조회")
     @GetMapping("")
-    public ResponseObject<List<ProductDto>> getAllCategories(){
-        return ResourceConverter.toResponseObject(productService.getAllCategories());
+    public ResponseObject<List<ProductDto>> getAllProduct(){
+        return ResourceConverter.toResponseObject(productService.getAllProduct());
     }
 
     // 상품 단건 조회
@@ -51,16 +53,16 @@ public class ProductController {
     @Operation(summary = "상품 등록")
     @PostMapping("")
     @ResponseBody
-    public ResponseObject<ProductDto> registerProduct(@RequestBody @Valid ProductDto productDto) {
-        return ResourceConverter.toResponseObject(productService.saveProduct(productDto));
+    public ResponseObject<ProductSetDto> registerProduct(@RequestBody @Valid ProductSetDto productSetDto) {
+        return ResourceConverter.toResponseObject(productService.saveProduct(productSetDto));
     }
 
     // 상품 수정
     // url : localhost:8080/api/product
     @Operation(summary = "상품 수정")
     @PutMapping("")
-    public ResponseObject<ProductDto> modifyProduct(@RequestBody @Valid ProductDto productDto) {
-        return ResourceConverter.toResponseObject(productService.saveProduct(productDto));
+    public ResponseObject<ProductSetDto> modifyProduct(@RequestBody @Valid ProductSetDto productSetDto) {
+        return ResourceConverter.toResponseObject(productService.saveProduct(productSetDto));
     }
 
     // 상품 삭제
@@ -71,11 +73,19 @@ public class ProductController {
         return ResourceConverter.toResponseObject(productService.removeProduct(productId));
     }
 
-    // 카테고리별 최저가 상품
+    // 구현1) 카테고리별 최저가 상품
     // uri : localhost:8080/api/product/lowest
     @Operation(summary = "카테고리별 최저가 상품")
     @GetMapping("/lowest")
     public ResponseObject<ProductLowestTotalDto> getProductLowest() {
         return ResourceConverter.toResponseObject(productService.getProductLowest());
+    }
+
+    // 구현2) 단일 브랜드 상품 조회
+    // uri : localhost:8080/api/product/brand/{brandId}
+    @Operation(summary = "단일 브랜드 상품 조회")
+    @GetMapping("/brand/{brandId}")
+    public ResponseObject<ProductByBrandTotalDto> findProductByBrandId(@PathVariable(name = "brandId") Long brandId) {
+        return ResourceConverter.toResponseObject(productService.findProductByBrandId(brandId));
     }
 }

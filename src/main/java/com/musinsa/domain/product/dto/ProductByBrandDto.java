@@ -1,20 +1,17 @@
 package com.musinsa.domain.product.dto;
 
-import com.musinsa.domain.product.entity.Product;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Getter
-@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Schema(description = "상품 DTO")
-public class ProductDto {
+@Schema(description = "단일 브랜드 상품 조회 DTO")
+public class ProductByBrandDto {
 
     @Schema(description = "상품ID")
     private Long productId;
@@ -36,16 +33,4 @@ public class ProductDto {
 
     @Schema(description = "브랜드명")
     private String brandName;
-
-    public static ProductDto toDto(Product product) {
-        return ProductDto.builder()
-            .productId(product.getProductId())
-            .productName(product.getProductName())
-            .productPrice(product.getProductPrice())
-            .categoryId(product.getCategory().getCategoryId())
-            .categoryName(product.getCategory().getCategoryName())
-            .brandId(product.getBrand().getBrandId())
-            .brandName(product.getBrand().getBrandName())
-            .build();
-    }
 }

@@ -6,13 +6,12 @@ import com.musinsa.domain.brand.repository.BrandRepository;
 import com.musinsa.global.common.ResponseResult;
 import com.musinsa.global.exception.BusinessException;
 import com.musinsa.global.exception.ExceptionCode;
+import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
@@ -29,14 +28,9 @@ public class BrandService {
     public List<BrandDto> getAllBrand() {
         List<Brand> brandList = brandRepository.findAll();
 
-        List<BrandDto> brandDtoList = new ArrayList<>();
-        for (Brand brand : brandList) {
-            BrandDto brandDto = new BrandDto();
-            brandDto.setBrandId(brand.getBrandId());
-            brandDto.setBrandName(brand.getBrandName());
-            brandDtoList.add(brandDto);
-        }
-        return brandDtoList;
+        return brandList.stream()
+            .map(BrandDto::toDto)
+            .collect(Collectors.toList());
     }
 
     /**
