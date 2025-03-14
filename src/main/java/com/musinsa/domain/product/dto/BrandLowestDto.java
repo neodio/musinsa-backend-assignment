@@ -1,13 +1,24 @@
 package com.musinsa.domain.product.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-@Schema(description = "단일 브랜드 상품 조회 DTO")
-public interface BrandLowestDto {
+@Getter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Schema(description = "카테고리별 그룹별 최저가 조회 DTO")
+public class BrandLowestDto {
+
+    @Schema(description = "카테고리ID")
+    private Long categoryId;
 
     @Schema(description = "브랜드ID")
-    Long getBrandId = 0L;
+    private Long brandId;
 
     @Schema(description = "최저가격의 합계")
-    Integer getLowestTotalPrice = 0;
+    private Integer lowestPrice;
 }

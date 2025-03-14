@@ -4,6 +4,7 @@ import static com.musinsa.domain.brand.entity.QBrand.brand;
 import static com.musinsa.domain.category.entity.QCategory.category;
 import static com.musinsa.domain.product.entity.QProduct.product;
 
+import com.musinsa.domain.product.dto.BrandLowestDto;
 import com.musinsa.domain.product.dto.ProductByBrandDto;
 import com.musinsa.domain.product.dto.ProductLowestDto;
 import com.querydsl.core.types.Projections;
@@ -44,24 +45,18 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
             .fetch();
     }
 
-//    @Override
-//    public BrandLowestDto findBrandLowest() {
-//        StringPath subQueryAlias = Expressions.stringPath("sub_query_order");
-//
-//        return queryFactory
-//            .select(Projections.fields(BrandLowestDto.class,
-//                brand.brandId,
-//                product.productPrice.sum()
-//            ))
-//            .from(
-//                JPAExpressions
-//                    .select(product.category.categoryId, product.brand.brandId, product.productPrice.min())
-//                    .from(product)
-//                    .groupBy(product.category.categoryId, product.brand.brandId),
-//                subQueryAlias
-//            )
-//            .groupBy(subQueryAlias.)
-//    }
+        @Override
+    public List<BrandLowestDto> findBrandLowest() {
+        return queryFactory
+            .select(Projections.fields(BrandLowestDto.class,
+                product.category.categoryId,
+                product.brand.brandId,
+                product.productPrice.min().as("lowestPrice")
+            ))
+            .from(product)
+            .groupBy(product.category.categoryId, product.brand.brandId)
+            .fetch();
+    }
 
     @Override
     public List<ProductByBrandDto> findProductByBrandId(Long brandId) {

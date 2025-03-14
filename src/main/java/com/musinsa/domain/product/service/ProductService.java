@@ -13,9 +13,11 @@ import com.musinsa.global.common.ResponseResult;
 import com.musinsa.global.exception.BusinessException;
 import com.musinsa.global.exception.ExceptionCode;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -90,24 +92,22 @@ public class ProductService {
      */
     public ProductByBrandTotalDto brandLowest() {
 
-        //브랜드별 최저가격 상품 가격의 합계 조회(native query)
-        //List<Product> productEntityList = productRepository.findBrandLowest();
-
-        //dto 변환
-        //List<BrandLowestDto> brandLowest = productEntityList.stream()
-//                                            .map(BrandLowestDto::toDto)
-//                                            .collect(Collectors.toList());
-
         List<BrandLowestDto> brandLowest = productRepository.findBrandLowest();
 
-        //최저가 브랜드 추출
-        BrandLowestDto lowestBrand = brandLowest.stream()
-            .sorted(Comparator.comparing(BrandLowestDto::getLowestTotalPrice))
-            .findFirst()
-            .orElseThrow(() -> new BusinessException(ExceptionCode.ERROR_CODE_1009, "브랜드 최저가"));
+        //브랜드별 합계
+        Map<Long, Integer> brandSumMap = brandLowest.stream()
+            .collect(
+                Collectors.groupingBy(
+                    BrandLowestDto :: getBrandId,
+                    Collectors.summingInt(BrandLowestDto :: getLowestPrice)
+                )
+            );
+
+        //최저가 brandId 추출
+        Long brandId = Collections.min(brandSumMap.entrySet(), Comparator.comparingInt(Entry::getValue)).getKey();
 
         // 브랜드의 카테고리별 최저가 상품 조회
-        List<ProductByBrandDto> productByBrandList = productRepository.findProductByBrandId(lowestBrand.getBrandId());
+        List<ProductByBrandDto> productByBrandList = productRepository.findProductByBrandId(brandId);
 
         return ProductByBrandTotalDto.builder()
             .brandId(productByBrandList.get(0).getBrandId())
@@ -118,6 +118,8 @@ public class ProductService {
                         .sum())
             .build();
     }
+
+
 
     /**
      * 중복 제거
