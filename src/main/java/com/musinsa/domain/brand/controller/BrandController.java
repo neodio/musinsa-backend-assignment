@@ -6,6 +6,7 @@ import com.musinsa.global.common.ResourceConverter;
 import com.musinsa.global.common.ResponseObject;
 import com.musinsa.global.common.ResponseResult;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
@@ -24,6 +25,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @Validated
+@Tag(name = "브랜드 관리")
 @RequestMapping("/api/brand")
 public class BrandController {
 
