@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<!-- head Start-->
+<div th:replace="~{fragment/head :: head}"></div>
+<!-- head End-->
+
+
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+
+
+    <!-- HEADER Start -->
+    <div th:replace="~{fragment/headerTitle :: headerTitle}"></div>
+    <!-- HEADER End -->
+
+    <!-- Side Menu Start -->
+    <div th:replace="~{fragment/sideMenu :: sideMenu(${code},${menuList})}"></div>
+    <!-- Side Menu End -->
+
+
+    <!-- Contents-->
+    <div class="content-wrapper">
+        <section class="content-header">
+            <h1>
+                카테고리 관리
+                <small>카테고리 관리</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i> 카테고리 관리</a></li>
+                <li class="active">카테고리 관리</li>
+            </ol>
+        </section>
+
+        <section class="content">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box">
+                        <div class="box-header">
+                            <div class="col">
+                                <button class="btn btn-primary float-end"
+                                        th:onclick="|location.href='@{/pages/categoryAdd}'|"
+                                        type="button">카테고리 신규 등록
+                                </button>
+                            </div>
+                        </div>
+                        <div class="box-header">
+                            <h3 class="box-title">결과</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                                <div class="row">
+                                    <div class="col-sm-6"></div>
+                                    <div class="col-sm-6"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <table id="example2" class="table table-bordered table-hover dataTable"
+                                               role="grid" aria-describedby="example2_info">
+                                            <thead>
+                                            <tr role="row">
+                                                <th class="text-center bg-light-blue-gradient">
+                                                    카테고리ID
+                                                </th>
+                                                <th class="text-center bg-light-blue-gradient">
+                                                    카테고리명
+                                                </th>
+                                                <th class="text-center bg-light-blue-gradient">
+                                                    등록자
+                                                </th>
+                                                <th class="text-center bg-light-blue-gradient">
+                                                    수정자
+                                                </th>
+                                                <th class="text-center bg-light-blue-gradient">
+                                                    등록일시
+                                                </th>
+                                                <th class="text-center bg-light-blue-gradient">
+                                                    수정일시
+                                                </th>
+                                            </tr>
+                                            </thead>
+                                            <tbody id="itemList">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </div>
+    <!-- Content End -->
+
+    <!-- Footer Start -->
+    <div th:replace="~{fragment/footer :: footer}"></div>
+    <!-- Footer End -->
+
+    <!-- controlSidebar Start -->
+    <div th:replace="~{fragment/controlSidebar :: controlSidebar}"></div>
+    <!-- controlSidebar End -->
+
+
+    <div class="control-sidebar-bg"></div>
+</div>
+
+
+<script src="/app/category.js"></script>
+</body>
+</html>
