@@ -1,9 +1,9 @@
 $(document).ready(function () {
-    category.init();
-    category.searchStart();
+    brand.init();
+    brand.searchStart();
 });
 
-var category = {
+var brand = {
     /**
      * 초기화
      */
@@ -13,17 +13,17 @@ var category = {
     searchStart : function() {
         $.ajax({
             type:"get",
-            url:"/api/category",
+            url:"/api/brand",
             success: function(response) {
                 var dataList = response.data;
 
                 var table = '';
 
                 $.each(dataList, function(index, item) {
-                    var uri = "/pages/categoryEdit/" + item.categoryId;
-                    table += '<tr class="odd" onclick="javascript:trOnClick(' + item.categoryId + ')" style="cursor:pointer;">'
-                        + '<td>' + item.categoryId + '</td>'
-                        + '<td>' + item.categoryName + '</td>'
+                    var uri = "/pages/brandEdit/" + item.brandId;
+                    table += '<tr class="odd" onclick="javascript:trOnClick(' + item.brandId + ')" style="cursor:pointer;">'
+                        + '<td>' + item.brandId + '</td>'
+                        + '<td>' + item.brandName + '</td>'
                         + '<td>' + item.createdBy + '</td>'
                         + '<td>' + item.lastModifiedBy + '</td>'
                         + '<td>' + item.createdDate + '</td>'
@@ -44,6 +44,6 @@ var category = {
     }
 };
 
-function trOnClick(categoryId) {
-    location.href = "/pages/categoryEdit/" + categoryId;
+function trOnClick(brandId) {
+    location.href = "/pages/brandEdit/" + brandId;
 }

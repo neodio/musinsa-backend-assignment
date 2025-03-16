@@ -23,12 +23,12 @@
     <div class="content-wrapper">
         <section class="content-header">
             <h1>
-                카테고리 수정
-                <small>카테고리 수정</small>
+                상품 수정
+                <small>상품 수정</small>
             </h1>
             <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i> 카테고리 수정</a></li>
-                <li class="active">카테고리 수정</li>
+                <li><a href="#"><i class="fa fa-dashboard"></i> 상품 수정</a></li>
+                <li class="active">상품 수정</li>
             </ol>
         </section>
 
@@ -36,36 +36,54 @@
             <div class="box">
                 <div class="box-header">
                     <div>
-                        <label for="categoryId">카테고리 ID</label>
-                        <input type="text" id="categoryId" name="categoryId" class="form-control" value="" th:value="${categoryId}" readonly>
+                        <label for="productId">상품 ID</label>
+                        <input type="text" id="productId" name="productId" class="form-control" value="" th:value="${productId}" readonly>
                     </div>
-                    <div>
-                        <label for="categoryName">카테고리명</label>
-                        <input type="text" id="categoryName" name="categoryName" class="form-control" placeholder="카테고리명을 입력하세요">
+                    <div style="margin-top: 20px">
+                        <label for="productName">상품명</label>
+                        <input type="text" id="productName" name="productName" class="form-control" placeholder="상품명을 입력하세요">
                     </div>
-                    <div>
+                    <div style="margin-top: 20px">
+                        <label for="productPrice">상품가격</label>
+                        <input type="text" id="productPrice" name="productPrice" class="form-control" placeholder="상품가격을 입력하세요">
+                    </div>
+                    <div style="margin-top: 20px">
+                        <label for="category">카테고리</label>
+                        <div>
+                            <select id="category" name="category" class="form-control">
+                            </select>
+                        </div>
+                    </div>
+                    <div style="margin-top: 20px">
+                        <label for="brand">브랜드</label>
+                        <div>
+                            <select id="brand" name="brand" class="form-control">
+                            </select>
+                        </div>
+                    </div>
+                    <div style="margin-top: 20px">
                         <label for="createdBy">등록자</label>
                         <input type="text" id="createdBy" name="createdBy" class="form-control" value="" readonly>
                     </div>
-                    <div>
+                    <div style="margin-top: 20px">
                         <label for="createdDate">등록일시</label>
                         <input type="text" id="createdDate" name="createdDate" class="form-control" value="" readonly>
                     </div>
-                    <div>
+                    <div style="margin-top: 20px">
                         <label for="lastModifiedBy">수정자</label>
                         <input type="text" id="lastModifiedBy" name="lastModifiedBy" class="form-control" value="" readonly>
                     </div>
-                    <div>
+                    <div style="margin-top: 20px">
                         <label for="lastModifiedDate">수정일시</label>
                         <input type="text" id="lastModifiedDate" name="lastModifiedDate" class="form-control" value="" readonly>
                     </div>
                     <hr class="my-6">
                     <div class="row">
                         <div class="col-xs-4">
-                            <button class="btn btn-primary float-end" id="update" onclick="categoryEdit.update()">카테고리 수정</button>
-                            <button class="btn btn-primary float-end" id="delete" onclick="categoryEdit.delete()">카테고리 삭제</button>
+                            <button class="btn btn-primary float-end" id="update" onclick="productEdit.update()">상품 수정</button>
+                            <button class="btn btn-primary float-end" id="delete" onclick="productEdit.delete()">상품 삭제</button>
                             <button class="btn btn-primary float-end"
-                                    th:onclick="|location.href='@{/pages/category}'|"
+                                    th:onclick="|location.href='@{/pages/product}'|"
                                     type="button">취소</button>
                         </div>
                     </div>
@@ -88,6 +106,6 @@
 </div>
 
 
-<script src="/app/categoryEdit.js"></script>
+<script src="/app/productEdit.js"></script>
 </body>
 </html>

@@ -24,6 +24,10 @@ public class Brand extends BaseEntity {
 
     private String brandName;
 
+    public Brand(Long brandId) {
+        this.brandId = brandId;
+    }
+
     public Brand(String brandName) {
         this.brandName = brandName;
     }

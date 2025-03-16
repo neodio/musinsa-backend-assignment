@@ -1,29 +1,28 @@
 $(document).ready(function () {
-    category.init();
-    category.searchStart();
+    product.searchStart();
 });
 
-var category = {
-    /**
-     * 초기화
-     */
-    init : function() {
-    },
+var product = {
 
     searchStart : function() {
         $.ajax({
             type:"get",
-            url:"/api/category",
+            url:"/api/product",
             success: function(response) {
                 var dataList = response.data;
 
                 var table = '';
 
                 $.each(dataList, function(index, item) {
-                    var uri = "/pages/categoryEdit/" + item.categoryId;
-                    table += '<tr class="odd" onclick="javascript:trOnClick(' + item.categoryId + ')" style="cursor:pointer;">'
+                    var uri = "/pages/productEdit/" + item.productId;
+                    table += '<tr class="odd" onclick="javascript:trOnClick(' + item.productId + ')" style="cursor:pointer;">'
+                        + '<td>' + item.productId + '</td>'
+                        + '<td>' + item.productName + '</td>'
+                        + '<td>' + item.productPrice + '</td>'
                         + '<td>' + item.categoryId + '</td>'
                         + '<td>' + item.categoryName + '</td>'
+                        + '<td>' + item.brandId + '</td>'
+                        + '<td>' + item.brandName + '</td>'
                         + '<td>' + item.createdBy + '</td>'
                         + '<td>' + item.lastModifiedBy + '</td>'
                         + '<td>' + item.createdDate + '</td>'
@@ -44,6 +43,6 @@ var category = {
     }
 };
 
-function trOnClick(categoryId) {
-    location.href = "/pages/categoryEdit/" + categoryId;
+function trOnClick(productId) {
+    location.href = "/pages/productEdit/" + productId;
 }

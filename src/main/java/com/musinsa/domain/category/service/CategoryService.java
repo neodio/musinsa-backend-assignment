@@ -6,12 +6,12 @@ import com.musinsa.domain.category.repository.CategoryRepository;
 import com.musinsa.global.common.ResponseResult;
 import com.musinsa.global.exception.BusinessException;
 import com.musinsa.global.exception.ExceptionCode;
-import java.util.List;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -24,7 +24,7 @@ public class CategoryService {
     /**
      * 카테고리 목록 조회
      */
-    @Cacheable(value = "CATEGORY", key = "'ALL'")
+//    @Cacheable(value = "CATEGORY", key = "'ALL'")
     public List<CategoryDto> getAllCategories() {
         List<Category> categoryList = categoryRepository.findAll();
 

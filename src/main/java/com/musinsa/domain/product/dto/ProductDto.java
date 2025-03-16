@@ -37,6 +37,18 @@ public class ProductDto {
     @Schema(description = "브랜드명")
     private String brandName;
 
+    @Schema(description = "등록자")
+    private String createdBy;
+
+    @Schema(description = "수정자")
+    private String lastModifiedBy;
+
+    @Schema(description = "등록일시")
+    private String createdDate;
+
+    @Schema(description = "수정일시")
+    private String lastModifiedDate;
+
     public static ProductDto toDto(Product product) {
         return ProductDto.builder()
             .productId(product.getProductId())
@@ -46,6 +58,10 @@ public class ProductDto {
             .categoryName(product.getCategory().getCategoryName())
             .brandId(product.getBrand().getBrandId())
             .brandName(product.getBrand().getBrandName())
+            .createdBy(product.getCreatedBy())
+            .lastModifiedBy(product.getLastModifiedBy())
+            .createdDate(String.valueOf(product.getCreatedDate()))
+            .lastModifiedDate(String.valueOf(product.getLastModifiedDate()))
             .build();
     }
 }

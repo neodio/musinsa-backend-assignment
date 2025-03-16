@@ -4,6 +4,7 @@ import com.musinsa.domain.product.entity.Product;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,14 +24,20 @@ public class ProductSetDto {
     private Long productId;
 
     @Schema(description = "상품명")
-    @NotNull(message = "상품명")
+    @NotEmpty(message = "상품명")
     private String productName;
 
     @Schema(description = "상품가격")
     @NotNull(message = "상품가격")
-    @Min(value = 0, message = "상품가격")
+    @Min(value = 100, message = "상품가격")
     @Max(value = 100000000, message = "상품가격")
     private int productPrice;
+
+    @Schema(description = "카테고리ID")
+    private Long categoryId;
+
+    @Schema(description = "브랜드ID")
+    private Long brandId;
 
     public static ProductSetDto toDto(Product product) {
         return ProductSetDto.builder()

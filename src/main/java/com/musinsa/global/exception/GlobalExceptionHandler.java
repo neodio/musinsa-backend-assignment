@@ -6,7 +6,6 @@ import com.musinsa.global.common.ResponseObject;
 import com.musinsa.global.util.LogUtil;
 import io.micrometer.common.util.StringUtils;
 import jakarta.servlet.http.HttpServletRequest;
-import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -20,6 +19,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.NoHandlerFoundException;
+
+import java.util.Optional;
 
 
 /**
@@ -53,6 +54,7 @@ public class GlobalExceptionHandler {
 
             switch (codeType) {
                 case "NotNull":
+                case "NotEmpty":
                     errorCode = ExceptionCode.ERROR_CODE_1002.getCode();
                     errorMessage.append("(").append(errorDefMsg).append(")").append(ExceptionCode.ERROR_CODE_1002.getDescription());
                     break;

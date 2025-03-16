@@ -50,6 +50,9 @@ public class Product extends BaseEntity {
         return Product.builder()
                 .productId(productSetDto.getProductId())
                 .productName(productSetDto.getProductName())
+                .productPrice(productSetDto.getProductPrice())
+                .category(new Category(productSetDto.getCategoryId()))
+                .brand(new Brand(productSetDto.getBrandId()))
                 .build();
     }
 }

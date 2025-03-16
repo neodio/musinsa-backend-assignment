@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<!-- head Start-->
+<div th:replace="~{fragment/head :: head}"></div>
+<!-- head End-->
+
+
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+
+
+    <!-- HEADER Start -->
+    <div th:replace="~{fragment/headerTitle :: headerTitle}"></div>
+    <!-- HEADER End -->
+
+    <!-- Side Menu Start -->
+    <div th:replace="~{fragment/sideMenu :: sideMenu(${code},${menuList})}"></div>
+    <!-- Side Menu End -->
+
+
+    <!-- Contents-->
+    <div class="content-wrapper">
+        <section class="content-header">
+            <h1>
+                구현 3) 카테고리 이름으로 최저, 최고 가격 브랜드와 상품 가격을 조회하는 API
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i>최저, 최고 가격 브랜드와 상품</a></li>
+                <li class="active">상품 조회</li>
+            </ol>
+        </section>
+        <section class="content-header">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h3 style="margin-left: 10px">카테고리명</h3>
+                    <div class="form-group margin-bottom-none">
+                        <div class="col-sm-9">
+<!--                            <label for="categoryName">카테고리명</label>-->
+                            <input type="text" id="categoryName" name="categoryName" class="form-control input-sm" placeholder="상의, 아우터, 바지, 스니커즈, 가방, 모자, 양말, 액세서리">
+                        </div>
+                        <div class="col-sm-3">
+                            <button onclick="minMaxProduct.searchStart()" class="btn btn-danger pull-right btn-block btn-sm">조회</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box">
+                        <div class="box-header" style="margin-top: 20px; text-align: center">
+                            <h2 class="box-title">최저가</h2>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <div class="dataTables_wrapper form-inline dt-bootstrap">
+                                <div class="row">
+                                    <div class="col-sm-6"></div>
+                                    <div class="col-sm-6"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <table class="table table-bordered table-hover dataTable"
+                                               role="grid" aria-describedby="example2_info">
+                                            <thead>
+                                            <tr role="row">
+                                                <th class="text-center bg-light-blue-gradient">
+                                                    브랜드명
+                                                </th>
+                                                <th class="text-center bg-light-blue-gradient">
+                                                    상품가격
+                                                </th>
+                                                <th class="text-center bg-light-blue-gradient">
+                                                    카테고리명
+                                                </th>
+                                                <th class="text-center bg-light-blue-gradient">
+                                                    상품ID
+                                                </th>
+                                                <th class="text-center bg-light-blue-gradient">
+                                                    상품명
+                                                </th>
+                                                <th class="text-center bg-light-blue-gradient">
+                                                    카테고리ID
+                                                </th>
+                                                <th class="text-center bg-light-blue-gradient">
+                                                    브랜드ID
+                                                </th>
+                                            </tr>
+                                            </thead>
+                                            <tbody id="lowestProductList">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box">
+                        <div class="box-header" style="margin-top: 20px; text-align: center">
+                            <h2 class="box-title">최고가</h2>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <div class="dataTables_wrapper form-inline dt-bootstrap">
+                                <div class="row">
+                                    <div class="col-sm-6"></div>
+                                    <div class="col-sm-6"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <table class="table table-bordered table-hover dataTable"
+                                               role="grid" aria-describedby="example2_info">
+                                            <thead>
+                                            <tr role="row">
+                                                <th class="text-center bg-light-blue-gradient">
+                                                    브랜드명
+                                                </th>
+                                                <th class="text-center bg-light-blue-gradient">
+                                                    상품가격
+                                                </th>
+                                                <th class="text-center bg-light-blue-gradient">
+                                                    카테고리명
+                                                </th>
+                                                <th class="text-center bg-light-blue-gradient">
+                                                    상품ID
+                                                </th>
+                                                <th class="text-center bg-light-blue-gradient">
+                                                    상품명
+                                                </th>
+                                                <th class="text-center bg-light-blue-gradient">
+                                                    카테고리ID
+                                                </th>
+                                                <th class="text-center bg-light-blue-gradient">
+                                                    브랜드ID
+                                                </th>
+                                            </tr>
+                                            </thead>
+                                            <tbody id="highestProductList">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <!-- Content End -->
+
+    <!-- Footer Start -->
+    <div th:replace="~{fragment/footer :: footer}"></div>
+    <!-- Footer End -->
+
+    <!-- controlSidebar Start -->
+    <div th:replace="~{fragment/controlSidebar :: controlSidebar}"></div>
+    <!-- controlSidebar End -->
+
+
+    <div class="control-sidebar-bg"></div>
+</div>
+
+
+<script src="/app/minMaxProduct.js"></script>
+</body>
+</html>

@@ -42,8 +42,8 @@ public class CategoryDto {
                 .categoryName(category.getCategoryName())
                 .createdBy(category.getCreatedBy())
                 .lastModifiedBy(category.getLastModifiedBy())
-                .createdDate(category.getCreatedDate().toString())
-                .lastModifiedDate(category.getLastModifiedDate().toString())
+                .createdDate(String.valueOf(category.getCreatedDate()))
+                .lastModifiedDate(String.valueOf(category.getLastModifiedDate()))
                 .build();
     }
 }

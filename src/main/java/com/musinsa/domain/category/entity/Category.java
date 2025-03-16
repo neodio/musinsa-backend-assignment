@@ -24,6 +24,10 @@ public class Category extends BaseEntity {
 
     private String categoryName;
 
+    public Category(Long categoryId) {
+        this.categoryId = categoryId;
+    }
+
     public Category(String categoryName) {
         this.categoryName = categoryName;
     }
