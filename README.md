@@ -39,8 +39,9 @@
 ## 환경
 - java 17
 - spring boot 3.4.3
-- IntelliJ IDEA
-- Thymeleaf
+- IDE : IntelliJ IDEA
+- template engine : Thymeleaf
+- OS : macOS
 
 ## Local 레디스 개발환경을 위한 Docker
 - Container List
