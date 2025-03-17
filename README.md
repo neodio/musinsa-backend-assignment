@@ -119,9 +119,9 @@ http://localhost:8080/swagger-ui
 
 | 기능         | 메소드 | URL                                                    | RETURN TYPE                          |
 |------------| --- |--------------------------------------------------------|--------------------------------------|
-| 카테고리별 최저가 상품 | GET | /api/product/lowest                                    | ResponseObject\<<ProductLowestTotalDto\> |
-| 단일 브랜드 최저가 상품 조회 | GET | /api/product/brandLowest                               | ResponseObject\<ProductByBrandTotalDto\>         |
-| 카테고리 이름으로 최저, 최고 가격 브랜드와 상품 가격을 조회    | POST | /api/product/findProductByCategoryName?categoryName={categoryName} | ResponseObject\<ProductMinMaxByCategoryNameDto\>      |
+| 카테고리별 최저가 상품 | GET | /api/product/lowest                                    | ResponseObject\<ProductLowestTotalDto\> |
+| 단일 브랜드 최저가 상품 조회 | GET | /api/product/brandLowest                               | ResponseObject\<ProductByBrandTotalDto\>        |
+| 카테고리 이름으로 최저, 최고 가격 브랜드와 상품 가격을 조회    | POST | /api/product/findProductByCategoryName?categoryName={categoryName} | ResponseObject\<ProductMinMaxByCategoryNameDto\>     |
 
 ## 화면 설명
 ### 메인
