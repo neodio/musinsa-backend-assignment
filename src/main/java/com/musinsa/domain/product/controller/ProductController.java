@@ -72,4 +72,12 @@ public class ProductController {
     public ResponseObject<ResponseResult> removeProduct(@PathVariable(name = "productId") Long productId) {
         return ResourceConverter.toResponseObject(productService.removeProduct(productId));
     }
+
+    // 상품 카운트
+    // uri : localhost:8080/api/product/count
+    @Operation(summary = "상품 카운트")
+    @GetMapping("/count")
+    public ResponseObject<Long> getProductCount() {
+        return ResourceConverter.toResponseObject(productService.getProductCount());
+    }
 }

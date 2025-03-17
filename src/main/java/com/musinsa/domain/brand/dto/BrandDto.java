@@ -24,10 +24,6 @@ public class BrandDto {
     @NotEmpty(message = "브랜드명")
     private String brandName;
 
-    @Schema(description = "카테고리명")
-    @NotEmpty(message = "카테고리명")
-    private String categoryName;
-
     @Schema(description = "등록자")
     private String createdBy;
 
@@ -39,6 +35,15 @@ public class BrandDto {
 
     @Schema(description = "수정일시")
     private String lastModifiedDate;
+
+    public BrandDto(String brandName) {
+        this.brandName = brandName;
+    }
+
+    public BrandDto(Long brandId, String brandName) {
+        this.brandId = brandId;
+        this.brandName = brandName;
+    }
 
     public static BrandDto toDto(Brand brand) {
         return BrandDto.builder()

@@ -58,4 +58,11 @@ public class ProductService {
         productRepository.deleteById(categoryId);
         return ResponseResult.getResponseResult(categoryId, 1, "success");
     }
+
+    /**
+     * 상품 카운트
+     */
+    public Long getProductCount() {
+        return productRepository.countBy();
+    }
 }

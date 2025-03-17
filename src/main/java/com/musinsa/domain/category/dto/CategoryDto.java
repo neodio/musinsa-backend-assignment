@@ -36,6 +36,15 @@ public class CategoryDto {
     @Schema(description = "수정일시")
     private String lastModifiedDate;
 
+    public CategoryDto(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
+    public CategoryDto(Long categoryId, String categoryName) {
+        this.categoryId = categoryId;
+        this.categoryName = categoryName;
+    }
+
     public static CategoryDto toDto(Category category) {
         return CategoryDto.builder()
                 .categoryId(category.getCategoryId())

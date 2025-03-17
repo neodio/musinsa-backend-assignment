@@ -71,4 +71,12 @@ public class CategoryController {
     public ResponseObject<ResponseResult> removeBrand(@PathVariable(name = "categoryId") Long categoryId) {
         return ResourceConverter.toResponseObject(categoryService.removeCategory(categoryId));
     }
+
+    // 카테고리 카운트
+    // uri : localhost:8080/api/category/count
+    @Operation(summary = "카테고리 카운트")
+    @GetMapping("/count")
+    public ResponseObject<Long> getCategoryCount() {
+        return ResourceConverter.toResponseObject(categoryService.getCategoryCount());
+    }
 }

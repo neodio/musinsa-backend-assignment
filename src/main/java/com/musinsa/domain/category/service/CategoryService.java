@@ -58,4 +58,11 @@ public class CategoryService {
         categoryRepository.deleteById(categoryId);
         return ResponseResult.getResponseResult(categoryId, 1, "success");
     }
+
+    /**
+     * 카테고리 카운트
+     */
+    public Long getCategoryCount() {
+        return categoryRepository.countBy();
+    }
 }

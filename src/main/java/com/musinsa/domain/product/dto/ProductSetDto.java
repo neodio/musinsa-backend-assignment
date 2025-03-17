@@ -39,6 +39,13 @@ public class ProductSetDto {
     @Schema(description = "브랜드ID")
     private Long brandId;
 
+    public ProductSetDto(String productName, int productPrice, Long categoryId, Long brandId) {
+        this.productName = productName;
+        this.productPrice = productPrice;
+        this.categoryId = categoryId;
+        this.brandId = brandId;
+    }
+
     public static ProductSetDto toDto(Product product) {
         return ProductSetDto.builder()
                 .productId(product.getProductId())

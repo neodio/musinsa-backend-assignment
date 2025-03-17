@@ -71,4 +71,12 @@ public class BrandController {
     public ResponseObject<ResponseResult> removeBrand(@PathVariable(name = "brandId") Long brandId) {
         return ResourceConverter.toResponseObject(brandService.removeBrand(brandId));
     }
+
+    // 브랜드 카운트
+    // uri : localhost:8080/api/brand/count
+    @Operation(summary = "브랜드 카운트")
+    @GetMapping("/count")
+    public ResponseObject<Long> getBrandCount() {
+        return ResourceConverter.toResponseObject(brandService.getBrandCount());
+    }
 }

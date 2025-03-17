@@ -58,4 +58,11 @@ public class BrandService {
         brandRepository.deleteById(brandId);
         return ResponseResult.getResponseResult(brandId, 1, "success");
     }
+
+    /**
+     * 브랜드 카운트
+     */
+    public Long getBrandCount() {
+        return brandRepository.countBy();
+    }
 }
