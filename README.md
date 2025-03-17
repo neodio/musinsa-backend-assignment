@@ -47,7 +47,8 @@
   - redis:latest
 - 실행방법
   ```
-  $ cd docker && docker-compose up -d
+  $ cd docker
+  $ docker-compose up -d
   ```
 
 ## 어플리케이션 실행 방법
