@@ -76,7 +76,7 @@ public class BrandController {
     // uri : localhost:8080/api/brand/count
     @Operation(summary = "브랜드 카운트")
     @GetMapping("/count")
-    public ResponseObject<Long> getBrandCount() {
+    public ResponseObject<Integer> getBrandCount() {
         return ResourceConverter.toResponseObject(brandService.getBrandCount());
     }
 }

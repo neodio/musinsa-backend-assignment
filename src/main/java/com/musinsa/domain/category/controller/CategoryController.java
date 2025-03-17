@@ -76,7 +76,7 @@ public class CategoryController {
     // uri : localhost:8080/api/category/count
     @Operation(summary = "카테고리 카운트")
     @GetMapping("/count")
-    public ResponseObject<Long> getCategoryCount() {
+    public ResponseObject<Integer> getCategoryCount() {
         return ResourceConverter.toResponseObject(categoryService.getCategoryCount());
     }
 }

@@ -9,7 +9,7 @@ var product = {
     categoryCount : function() {
         $.ajax({
             type:"get",
-            url:"/api/product/count",
+            url:"/api/category/count",
             success: function(response) {
                 var data = response.data;
 

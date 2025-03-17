@@ -8,6 +8,7 @@ import com.musinsa.global.common.ResponseResult;
 import com.musinsa.global.exception.BusinessException;
 import com.musinsa.global.exception.ExceptionCode;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,7 +26,6 @@ public class ProductService {
     /**
      * 상품 목록 조회
      */
-//    @Cacheable(value = "PRODUCT", key = "'ALL'")
     public List<ProductDto> getAllProduct() {
         List<Product> productList = productRepository.findAll();
         return productList.stream()
@@ -62,7 +62,8 @@ public class ProductService {
     /**
      * 상품 카운트
      */
-    public Long getProductCount() {
-        return productRepository.countBy();
+    @Cacheable(value = "PRODUCT", key = "'ALL'")
+    public Integer getProductCount() {
+        return productRepository.countBy().intValue();
     }
 }

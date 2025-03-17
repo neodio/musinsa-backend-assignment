@@ -7,6 +7,7 @@ import com.musinsa.global.common.ResponseResult;
 import com.musinsa.global.exception.BusinessException;
 import com.musinsa.global.exception.ExceptionCode;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,7 +25,6 @@ public class CategoryService {
     /**
      * 카테고리 목록 조회
      */
-//    @Cacheable(value = "CATEGORY", key = "'ALL'")
     public List<CategoryDto> getAllCategories() {
         List<Category> categoryList = categoryRepository.findAll();
 
@@ -62,7 +62,8 @@ public class CategoryService {
     /**
      * 카테고리 카운트
      */
-    public Long getCategoryCount() {
-        return categoryRepository.countBy();
+    @Cacheable(value = "CATEGORY", key = "'ALL'")
+    public Integer getCategoryCount() {
+        return categoryRepository.countBy().intValue();
     }
 }

@@ -77,7 +77,7 @@ public class ProductController {
     // uri : localhost:8080/api/product/count
     @Operation(summary = "상품 카운트")
     @GetMapping("/count")
-    public ResponseObject<Long> getProductCount() {
+    public ResponseObject<Integer> getProductCount() {
         return ResourceConverter.toResponseObject(productService.getProductCount());
     }
 }
